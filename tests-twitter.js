@@ -160,3 +160,8 @@ test("getBestVideo", function (assert) {
 test("getBestVideo", function (assert) {
   assert.equal(getBestVideo(Mp4_noneWithBitRate_butWithNaN),"https://video.twimg.com/video1.mp4","4_videos_one_mp4_NaN");
 });
+
+//Here we test the functionality for null. If we try to get the best video without referencing a list, then the result will be null as expected
+test("getBestVideo", function (assert) {
+  assert.equal(getBestVideo([]),null,"null");
+});
