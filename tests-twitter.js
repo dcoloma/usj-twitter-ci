@@ -179,6 +179,6 @@ test("getBestVideo", function(assert) {
   assert.equal(getBestVideo(fourVideosNegativeBitrates), 'https://video.twimg.com/video3.mp4', 'four_videos_negative_bitrates');
   assert.equal(getBestVideo(videosWithoutBitrate), 'https://video.twimg.com/video2.mp4', 'videos_without_bitrate');
   assert.equal(getBestVideo(threeMp4sMiddleMaxBitrate), 'https://video.twimg.com/video2.mp4', 'three_mp4s_middle_max_bitrate');
-  assert.equal(getBestVideo(noVideos), null, 'no_videos'); // Fails due to no checking if there is any video in the array
-  assert.equal(getBestVideo(noMp4s), null, 'no_mp4s'); // Fails due to no ckecing if there is any MP4 in the array
+  assert.equal(getBestVideo(noVideos), null, 'no_videos');
+  assert.equal(getBestVideo(noMp4s), null, 'no_mp4s');
 });
