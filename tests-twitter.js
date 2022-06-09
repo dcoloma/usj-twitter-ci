@@ -173,7 +173,7 @@ noMp4s = [{
 test("getBestVideo", function(assert) {
   assert.equal(getBestVideo(oneMp4), 'https://video.twimg.com/video4.mp4', '4_videos_one_mp4_last_one');
   assert.equal(getBestVideo(twoMp4s), 'https://video.twimg.com/video5.mp4', '5_videos_two_mp4s_last_one');
-  assert.equal(getBestVideo(equalBitrates), 'https://video.twimg.com/video1.mp4', 'equal_bitrates_two_mp4s_last_one');
+  assert.equal(getBestVideo(equalBitrates), 'https://video.twimg.com/video1.mp4', 'equal_bitrates_two_mp4s_first_one');
   assert.equal(getBestVideo(twoVideosStringBitrate), 'https://video.twimg.com/video2.mp4', 'two_videos_string_bitrate');
   assert.equal(getBestVideo(twoVideosFloatBitrate), 'https://video.twimg.com/video2.mp4', 'two_videos_float_bitrate');
   assert.equal(getBestVideo(fourVideosNegativeBitrates), 'https://video.twimg.com/video3.mp4', 'four_videos_negative_bitrates');
