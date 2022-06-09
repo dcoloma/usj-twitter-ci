@@ -1,0 +1,226 @@
+oneMp4 = [{
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video1.mp4'
+  },
+  {
+    content_type: 'application/x-mpegURL',
+    url: 'https://video.twimg.com/video2.mp4'
+  },
+  {
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video3.mp4'
+  },
+  {
+    bitrate: 432000,
+    content_type: 'video/mp4',
+    url: 'https://video.twimg.com/video4.mp4'
+  }
+];
+
+test("getBestVideo", function(assert) {
+  assert.equal(getBestVideo(oneMp4), 'https://video.twimg.com/video4.mp4', '4_videos_one_mp4_last_one');
+});
+
+//test 1 with an empty array
+twoMp4 = [{
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video1.mp4'
+  },
+  {
+    content_type: 'application/x-mpegURL',
+    url: 'https://video.twimg.com/video2.mp4'
+  },
+  {
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video3.mp4'
+  },
+  {
+    bitrate: 432000,
+    content_type: 'video/mp4',
+    url: 'https://video.twimg.com/video4.mp4'
+  }
+];
+
+test("getBestVideo", function(assert) {
+  assert.equal(getBestVideo(twoMp4), 'null', 'empty array');
+});
+
+// second test with one mp4 with a bigger bitrate than the previous one
+threeMp4 = [{
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video1.mp4'
+  },
+  {
+    content_type: 'application/x-mpegURL',
+    url: 'https://video.twimg.com/video2.mp4'
+  },
+  {
+    bitrate: 500000,
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video3.mp4'
+  },
+  {
+    bitrate: 432000,
+    content_type: 'video/mp4',
+    url: 'https://video.twimg.com/video4.mp4'
+  }
+];
+
+test("getBestVideo", function(assert) {
+  assert.equal(getBestVideo(threeMp4), 'https://video.twimg.com/video3.mp4', 'test 2');
+});
+
+// test 3, bigger bitrate but different video extension (mov)
+
+fourMp4 = [{
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video1.mp4'
+  },
+  {
+    content_type: 'application/x-mpegURL',
+    url: 'https://video.twimg.com/video2.mp4'
+  },
+  {
+    bitrate: 500000,
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video3.mov'
+  },
+  {
+    bitrate: 432000,
+    content_type: 'video/mp4',
+    url: 'https://video.twimg.com/video4.mp4'
+  }
+];
+
+test("getBestVideo", function(assert) {
+  assert.equal(getBestVideo(fourMp4), 'https://video.twimg.com/video4.mp4', 'test 3');
+});
+//test 4 with 2 videos with the same bitrate, both of them should be a correct answer
+fiveMp4 = [{
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video1.mp4'
+  },
+  {
+    content_type: 'application/x-mpegURL',
+    url: 'https://video.twimg.com/video2.mp4'
+  },
+  {
+    bitrate: 432000,
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video3.mp4'
+  },
+  {
+    bitrate: 432000,
+    content_type: 'video/mp4',
+    url: 'https://video.twimg.com/video4.mp4'
+  }
+];
+
+test("getBestVideo", function(assert) {
+  assert.equal(getBestVideo(fiveMp4), 'https://video.twimg.com/video4.mp4', 'test 4');
+});
+
+//test 5 with extensions with capital letters
+sixMp4 = [{
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video1.mp4'
+  },
+  {
+    content_type: 'application/x-mpegURL',
+    url: 'https://video.twimg.com/video2.mp4'
+  },
+  {
+    bitrate: 500000,
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video3.MP4'
+  },
+  {
+    bitrate: 432000,
+    content_type: 'video/mp4',
+    url: 'https://video.twimg.com/video4.mp4'
+  }
+];
+
+test("getBestVideo", function(assert) {
+  assert.equal(getBestVideo(sixMp4), 'https://video.twimg.com/video3.MP4', 'test 5');
+});
+//test 6 check with 3 unvalid urls and 1 valid
+sevenMp4 = [{
+    bitrate: 500000,
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video1.mp4'
+  },
+  {
+    
+    content_type: 'application/x-mpegURL',
+  
+  },
+  {
+    bitrate: 500000,
+    content_type: 'application/x-mpegUrl',
+   
+  },
+  {
+    bitrate: 432000,
+    content_type: 'video/mp4',
+   
+  }
+];
+//test 7 none of them have bitrate, should return the first one of the array
+test("getBestVideo", function(assert) {
+  assert.equal(getBestVideo(sevenMp4), 'https://video.twimg.com/video1.mp4', 'test 6');
+});
+
+eightMp4 = [{
+    
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video1.mp4'
+  },
+  {
+    
+    content_type: 'application/x-mpegURL',
+  url: 'https://video.twimg.com/video2.mp4'
+  },
+  {
+    
+    content_type: 'application/x-mpegUrl',
+   url: 'https://video.twimg.com/video3.MP4'
+  },
+  {
+   
+    content_type: 'video/mp4',
+   url: 'https://video.twimg.com/video4.mp4'
+  }
+];
+
+test("getBestVideo", function(assert) {
+  assert.equal(getBestVideo(eightMp4), 'https://video.twimg.com/video1.mp4', 'test 7');
+});
+
+//test 8 with negative bitrate
+nineMp4 = [{
+    
+    content_type: 'application/x-mpegUrl',
+    url: 'https://video.twimg.com/video1.mp4'
+  },
+  {
+    
+    content_type: 'application/x-mpegURL',
+  url: 'https://video.twimg.com/video2.mp4'
+  },
+  {
+    
+    content_type: 'application/x-mpegUrl',
+   url: 'https://video.twimg.com/video3.mp4'
+  },
+  {
+   bitrate: -432000,
+   content_type: 'video/mp4',
+   url: 'https://video.twimg.com/video4.mp4'
+  }
+];
+
+test("getBestVideo", function(assert) {
+  assert.equal(getBestVideo(nineMp4), 'https://video.twimg.com/video1.mp4', 'test 8');
+});
+
